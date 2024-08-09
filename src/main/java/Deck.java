@@ -31,4 +31,17 @@ public class Deck {
         return this.cards;
     }
 
+    public Card getTopCard() {
+        if(cards.size() < 0) {
+            return null;
+        }
+        return cards.get(cards.size() - 1);
+    }
+
+    public void dealTopCard() {
+        if(cards.size() > 0) {
+            cards.remove(cards.size() - 1);
+        }
+    }
+
 }
