@@ -13,6 +13,9 @@ public class ThreeCardPokerGame extends Game{
         super();
     }
 
+    // Function to get score of each player
+    // Input: Object Player
+    // Output: if player has 3 same card return 999
     @Override
     public int getScore(Player player) {
         if(isThreeOfKind(player)) {
@@ -29,6 +32,8 @@ public class ThreeCardPokerGame extends Game{
         return finalScore;
     }
 
+    // Function to deal card for players take part in game
+    // Description: Each player will receive alternate card and finish when all player has 3 card 
     @Override
     public void dealCards() {
         Deck deck = getDeck();
@@ -42,6 +47,8 @@ public class ThreeCardPokerGame extends Game{
         }
     }
 
+    // Function to find winner of game in list player take part in three poker card game
+    // Output: Find the bigest score in many player
     @Override
     public Player findWinner() {
         Player winPlayer = getPlayers().get(0);
@@ -53,6 +60,9 @@ public class ThreeCardPokerGame extends Game{
         return winPlayer;
     }
 
+    // Function to get value of card by Rank at three card game
+    // Input: Object card need to find value
+    // Output: value of card
     @Override
     public int getCardValue(Card card) {
         switch (card.getRank()) {
@@ -73,6 +83,9 @@ public class ThreeCardPokerGame extends Game{
         }
     }
 
+    // Function to check is player has 3 same rank cards
+    // Input: Object Player
+    // Output: True if count rank same = 3 else false
     public Boolean isThreeOfKind(Player player) {
         int countSameRank = 0;
         Rank firstCardRank = player.getCardsOnTheHand().get(0).getRank();
@@ -81,9 +94,6 @@ public class ThreeCardPokerGame extends Game{
                 countSameRank ++;
             }
         }
-        if(countSameRank == 3) {
-            return true;
-        }
-        return false;
+        return countSameRank == 3;
     }
 }
