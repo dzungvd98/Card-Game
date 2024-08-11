@@ -16,6 +16,7 @@ public class ThreeCardPokerGame extends Game{
     // Function to get score of each player
     // Input: Object Player
     // Output: if player has 3 same card return 999
+    // If player has 3 face 
     @Override
     public int getScore(Player player) {
         if(isThreeOfKind(player)) {
@@ -25,10 +26,7 @@ public class ThreeCardPokerGame extends Game{
         for(Card card : player.getCardsOnTheHand()) {
             finalScore += getCardValue(card);
         }
-
-        if(finalScore != 30) {
-            finalScore %= 10;
-        }
+        finalScore %= 10;
         return finalScore;
     }
 
@@ -84,7 +82,7 @@ public class ThreeCardPokerGame extends Game{
     }
 
     // Function to check is player has 3 same rank cards
-    // Input: Object Player
+    // Input: Object Player need to check
     // Output: True if count rank same = 3 else false
     public Boolean isThreeOfKind(Player player) {
         int countSameRank = 0;
@@ -94,6 +92,36 @@ public class ThreeCardPokerGame extends Game{
                 countSameRank ++;
             }
         }
-        return countSameRank == 3;
+        return countSameRank == MAX_CARDS_EACH_PLAYER;
+    }
+
+    // Function to check is player has whole cards is face card
+    // Input: Object Player need to check
+    // Output: True if whole card is face card else false
+    public Boolean isThreeOfFace(Player player) {
+        int countFaceCard = 0;
+        List<Card> cardsOnHandOfPlayer = player.getCardsOnTheHand();
+        for(Card card : cardsOnHandOfPlayer) {
+            if(card.getRank() == Rank.JACK || card.getRank() == Rank.QUEEN || card.getRank() == Rank.KING) {
+                countFaceCard++;
+            }
+        }
+        return countFaceCard == MAX_CARDS_EACH_PLAYER;
+    }
+
+    // public Boolean isPlayerHasThreeConsecutiveCard(Player player) {
+        
+    // }
+
+    // Function to get value of rank just use to check Consecutive Card
+    // Input: Card need to check
+    // Output: Jack, Queen, King is 11, 12, 13 and other is like common value by function getCardValue
+    public int getValueRankToCheckConsecutiveCard(Card card) {
+        switch (card.getRank()) {
+            case JACK: return 11;
+            case QUEEN: return 12;
+            case KING:return 13;
+            default: return getCardValue(card);
+        }
     }
 }
