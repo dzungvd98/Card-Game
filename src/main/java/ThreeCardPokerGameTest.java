@@ -29,10 +29,10 @@ public class ThreeCardPokerGameTest {
         game.dealCards();
 
         Player player1 = new Player();
-        player1.receiveCard(new Card(Suit.CLUBS, Rank.THREE));
-        player1.receiveCard(new Card(Suit.HEARTS, Rank.NINE));
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.NINE));
+        player1.receiveCard(new Card(Suit.HEARTS, Rank.TEN));
         player1.receiveCard(new Card(Suit.DIAMONDS, Rank.JACK));
-        assertEquals(2, game.getScore(player1));
+        assertEquals(99, game.getScore(player1));
     }
 
     @Test
@@ -45,9 +45,83 @@ public class ThreeCardPokerGameTest {
         player1.receiveCard(new Card(Suit.CLUBS, Rank.THREE));
         player1.receiveCard(new Card(Suit.HEARTS, Rank.THREE));
         player1.receiveCard(new Card(Suit.DIAMONDS, Rank.THREE));
-        assertEquals(true , game.isThreeOfKind(player1));
-        
-
-        
+        assertEquals(true , game.isPlayerHasThreeOfKindCard(player1));
     }
+
+    @Test
+    public void testSortListCardsSmallToBig() {
+        players.add(new Player("Shyni"));
+        players.add(new Player());
+        game.setPlayers(players);
+
+        Player player1 = new Player();
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.ACE));
+        player1.receiveCard(new Card(Suit.HEARTS, Rank.FOUR));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.THREE));
+        game.sortCardsSmallToBigByRank(player1.getCardsOnTheHand());
+        assertEquals("ACE OF CLUBS, THREE OF DIAMONDS, FOUR OF HEARTS ", player1.showHandCards());
+    } 
+
+    @Test
+    public void testIsThreeFaceCard() {
+        players.add(new Player("Shyni"));
+        players.add(new Player());
+        game.setPlayers(players);
+
+        Player player1 = new Player();
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.NINE));
+        player1.receiveCard(new Card(Suit.HEARTS, Rank.TEN));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.JACK));
+        assertEquals(false , game.isPlayerHasThreeOfFaceCard(player1));
+    }
+
+    @Test
+    public void testIsThreeConsecutiveCard() {
+        players.add(new Player("Shyni"));
+        players.add(new Player());
+        game.setPlayers(players);
+
+        Player player1 = new Player();
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.NINE));
+        player1.receiveCard(new Card(Suit.HEARTS, Rank.TEN));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.JACK));
+        assertEquals(true , game.isPlayerHasThreeConsecutiveCard(player1));
+    }
+
+    @Test
+    public void testFindWinner() {
+        Player player1 = new Player("Dungvd");
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.NINE));
+        player1.receiveCard(new Card(Suit.HEARTS, Rank.TEN));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.JACK));
+
+        Player player2 = new Player("Shyni");
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.ACE));
+        player1.receiveCard(new Card(Suit.HEARTS, Rank.KING));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.QUEEN));
+
+        Player player3 = new Player("TN");
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.THREE));
+        player1.receiveCard(new Card(Suit.HEARTS, Rank.EIGHT));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.SEVEN));
+
+        Player player4 = new Player("PT");
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.FIVE));
+        player1.receiveCard(new Card(Suit.HEARTS, Rank.FOUR));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.SIX));
+
+        players.add(player1);
+        players.add(player2);
+        players.add(player3);
+        players.add(player4);
+
+        game.setPlayers(players);
+        assertEquals("Dungvd", game.getPlayers().get(0).getPlayerName());
+        assertEquals(99, game.getScore(player1));
+
+
+    }
+
+
+    
 }

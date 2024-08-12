@@ -34,7 +34,7 @@ public abstract class Game {
     
     public abstract void dealCards();
     
-    public abstract Player findWinner();
+    public abstract List<Player> findWinner();
 
     public abstract int getCardValue(Card card);
 
