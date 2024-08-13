@@ -10,8 +10,8 @@ public class ThreeCardPokerGame extends Game{
     private final int THREE_OF_FACE_SCORE = 30;
     
 
-    public ThreeCardPokerGame(Deck deck, List<Player> players) {
-        super(deck, players);
+    public ThreeCardPokerGame(List<Player> players) {
+        super(players);
     }
 
     public ThreeCardPokerGame() {
@@ -24,7 +24,7 @@ public class ThreeCardPokerGame extends Game{
     // If player has 3 consecutive card return 99
     // Player has 3 face card return 30
     @Override
-    public int getScore(Player player) {
+    public int getIntScore(Player player) {
         if(isPlayerHasThreeOfKindCard(player)) {
             return THREE_OF_KIND_SCORE;
         }
@@ -68,8 +68,8 @@ public class ThreeCardPokerGame extends Game{
     public List<Player> findWinner() {
         List<Player> players = getPlayers();
         List<Player> winnerPlayers = new ArrayList<>();
-        players.sort(Comparator.comparingInt(this::getScore).thenComparing(this::getPlayerValueByCardsToFindWinner).reversed());
-        int maxScore = getScore(players.get(0));
+        players.sort(Comparator.comparingInt(this::getIntScore).thenComparing(this::getPlayerValueByCardsToFindWinner).reversed());
+        int maxScore = getIntScore(players.get(0));
         
         if(maxScore == THREE_OF_KIND_SCORE || maxScore == THREE_CONSECUTIVE_CARDS_SCORE) {
             winnerPlayers.add(players.get(0));
@@ -77,7 +77,7 @@ public class ThreeCardPokerGame extends Game{
         }
 
         for(Player player : players) {
-            if(getScore(player) == maxScore) {
+            if(getIntScore(player) == maxScore) {
                 winnerPlayers.add(player);
             }
         }
@@ -195,4 +195,26 @@ public class ThreeCardPokerGame extends Game{
         return getValueRankToCheckConsecutiveCard(firstCardOnHand);
     }
 
+
+    // Function to restore all hand cards of player 
+    // Reset cards of player 
+    public void restoreAllHandsCardsOfPlayerForNewGame() {
+        for(Player player : getPlayers()) {
+            player.setCardsOnHand(new ArrayList<>());
+        }
+    }
+
+    // Function to get string score base on INT score head
+    // Input: Object player
+    // Output: return string case of player card like three of kind, Three Consecutive.. or just score
+    public String getStringScoreOfPlayer(Player player) {
+        switch (getIntScore(player)) {
+            case THREE_OF_KIND_SCORE: return "Three Of Kind";
+            case THREE_CONSECUTIVE_CARDS_SCORE: return "Three Consecutive Cards";
+            case THREE_OF_FACE_SCORE: return "Three Of Face Cards";  
+        
+            default:
+                return getIntScore(player) + "";
+        }
+    }
 }

@@ -32,7 +32,7 @@ public class ThreeCardPokerGameTest {
         player1.receiveCard(new Card(Suit.CLUBS, Rank.NINE));
         player1.receiveCard(new Card(Suit.HEARTS, Rank.TEN));
         player1.receiveCard(new Card(Suit.DIAMONDS, Rank.JACK));
-        assertEquals(99, game.getScore(player1));
+        assertEquals(99, game.getIntScore(player1));
     }
 
     @Test
@@ -91,24 +91,24 @@ public class ThreeCardPokerGameTest {
     @Test
     public void testFindWinner() {
         Player player1 = new Player("Dungvd");
-        player1.receiveCard(new Card(Suit.CLUBS, Rank.NINE));
         player1.receiveCard(new Card(Suit.HEARTS, Rank.TEN));
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.NINE));
         player1.receiveCard(new Card(Suit.DIAMONDS, Rank.JACK));
 
         Player player2 = new Player("Shyni");
-        player1.receiveCard(new Card(Suit.CLUBS, Rank.ACE));
-        player1.receiveCard(new Card(Suit.HEARTS, Rank.KING));
-        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.QUEEN));
+        player2.receiveCard(new Card(Suit.CLUBS, Rank.ACE));
+        player2.receiveCard(new Card(Suit.HEARTS, Rank.KING));
+        player2.receiveCard(new Card(Suit.DIAMONDS, Rank.QUEEN));
 
         Player player3 = new Player("TN");
-        player1.receiveCard(new Card(Suit.CLUBS, Rank.THREE));
-        player1.receiveCard(new Card(Suit.HEARTS, Rank.EIGHT));
-        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.SEVEN));
+        player3.receiveCard(new Card(Suit.CLUBS, Rank.EIGHT));
+        player3.receiveCard(new Card(Suit.HEARTS, Rank.EIGHT));
+        player3.receiveCard(new Card(Suit.DIAMONDS, Rank.EIGHT));
 
         Player player4 = new Player("PT");
-        player1.receiveCard(new Card(Suit.CLUBS, Rank.FIVE));
-        player1.receiveCard(new Card(Suit.HEARTS, Rank.FOUR));
-        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.SIX));
+        player4.receiveCard(new Card(Suit.CLUBS, Rank.FIVE));
+        player4.receiveCard(new Card(Suit.HEARTS, Rank.FOUR));
+        player4.receiveCard(new Card(Suit.DIAMONDS, Rank.SIX));
 
         players.add(player1);
         players.add(player2);
@@ -116,12 +116,7 @@ public class ThreeCardPokerGameTest {
         players.add(player4);
 
         game.setPlayers(players);
-        assertEquals("Dungvd", game.getPlayers().get(0).getPlayerName());
-        assertEquals(99, game.getScore(player1));
-
-
+        assertEquals("TN", game.findWinner().get(0).getPlayerName());
     }
 
-
-    
 }

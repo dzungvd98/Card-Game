@@ -9,11 +9,11 @@ public abstract class Game {
         deck = new Deck();
     }
 
-    public Game(Deck deck, List<Player> players) {
-        this.deck = deck;
+    public Game(List<Player> players) {
+        this.deck = new Deck();
         this.players = players;
     }
-    
+
     public Deck getDeck() {
         return deck;
     }
@@ -30,7 +30,7 @@ public abstract class Game {
         this.players = players;
     }
 
-    public abstract int getScore(Player player);
+    public abstract int getIntScore(Player player);
     
     public abstract void dealCards();
     

@@ -82,6 +82,14 @@ public class Player {
         return true;
     }
 
+    public List<Card> getCardsOnHand() {
+        return cardsOnHand;
+    }
 
+    public void setCardsOnHand(List<Card> cardsOnHand) {
+        this.cardsOnHand = cardsOnHand;
+    }
+
+    
     
 }
