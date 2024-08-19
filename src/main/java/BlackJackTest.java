@@ -20,13 +20,15 @@ public class BlackJackTest {
 
     @Test
     public void testGetIntScore() {
-        player1.receiveCard(new Card(Suit.CLUBS, Rank.NINE));
-        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.EIGHT));
-        assertEquals(17, game.getIntScore(player1));
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.THREE));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.TWO));
+        player1.receiveCard(new Card(Suit.DIAMONDS, Rank.ACE));
+        player1.receiveCard(new Card(Suit.CLUBS, Rank.ACE));
+        assertEquals(19, game.getIntScore(player1));
 
-        // player2.receiveCard(new Card(Suit.CLUBS, Rank.ACE));
-        // player2.receiveCard(new Card(Suit.DIAMONDS, Rank.ACE));
-        // assertEquals(21, game.getIntScore(player2));
+        player2.receiveCard(new Card(Suit.CLUBS, Rank.ACE));
+        player2.receiveCard(new Card(Suit.DIAMONDS, Rank.ACE));
+        assertEquals(21, game.getIntScore(player2));
     }
 
 }

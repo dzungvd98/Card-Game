@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -7,10 +8,28 @@ public class BlackJack extends Game{
     public int getIntScore(Player player) {
         int finalScore = 0;
         List<Card> cardsOnHand = player.getCardsOnHand();
+        List<Card> cardsACEOnHand = new ArrayList<>();
         sortCardsSmallToBigByRank(cardsOnHand);
+        int countCard = 0;
         for(Card card : cardsOnHand) {
-            finalScore += getCardValue(card);
+            if(card.getRank() != Rank.ACE) {
+                finalScore += getCardValue(card);
+            } else {
+                cardsACEOnHand.add(card);
+            }
+            countCard++;
         }
+
+        for(int i = 0; i < cardsACEOnHand.size(); i++) {
+            if(finalScore + 11 <= 21 && cardsOnHand.size() < 4) {
+                finalScore += 11;
+            } else if(finalScore + 10 <= 21 && cardsOnHand.size() < 4) {
+                finalScore += 10;
+            } else {
+                finalScore += 1;
+            }
+        }
+
         return finalScore;
     }
 
